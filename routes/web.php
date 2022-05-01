@@ -44,14 +44,14 @@ Route::get('posts', function () {
 Route::get('posts/{post}', function ($slug) {
 
     $post = __DIR__ . "/../resources/posts/{$slug}.html";
-
+    ddd($post);
     if (!file_exists($post)) {
        return redirect('posts');
     }
     return view('post', [
         'post' => $post
     ]);
-});
+})->where('post','[A-z_\-]*');
 
 
 
