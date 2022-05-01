@@ -13,10 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
+/*
 Route::group(['prefix'=> 'user' ], function () {
     //Route/Controller code-practice
     Route::get('/{index}/{name?}', function ($index, $name = "Test") {
@@ -30,6 +28,29 @@ Route::group(['prefix'=> 'user' ], function () {
             print($name). '<br>';
         }
     })->name{'userList'};
+});
+
+Route::get('/', function () {
+    return view('welcome');
+});
+*/ 
+
+
+
+Route::get('posts', function () {
+    return view('posts');
+});
+
+Route::get('posts/{post}', function ($slug) {
+
+    $post = __DIR__ . "/../resources/posts/{$slug}.html";
+
+    if (!file_exists($post)) {
+       return redirect('posts');
+    }
+    return view('post', [
+        'post' => $post
+    ]);
 });
 
 
