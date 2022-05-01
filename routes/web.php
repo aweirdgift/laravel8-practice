@@ -16,3 +16,21 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['prefix'=> 'user' ], function () {
+    //Route/Controller code-practice
+    Route::get('/{index}/{name?}', function ($index, $name = "Test") {
+        $names = ['Johnny', 'Johnny', 'Yes', 'Papa'];
+        return $names[$index]. ' '.$name;
+    });
+
+    Route::get('/', function () {
+        $names = ['Johnny', 'Johnny', 'Yes', 'Papa'];
+        foreach ($names as $name) {
+            print($name). '<br>';
+        }
+    })->name{'userList'};
+});
+
+
+
