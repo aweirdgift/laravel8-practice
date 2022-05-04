@@ -41,17 +41,22 @@ Route::get('posts', function () {
     return view('posts');
 });
 
-Route::get('posts/{post}', function ($slug) {
+Route::get('posts/{post}', function ($slug) { //wildcards
 
     $post = __DIR__ . "/../resources/posts/{$slug}.html";
-    ddd($post);
     if (!file_exists($post)) {
-       return redirect('posts');
+       return redirect('posts'); //redirect
     }
+
+    cache()->remember("$post.{slug}", 5, function () use ($post) { // caching
+        var_dump('file_get_contents');
+        return file_get_contents($post);
+    });
+    $post = file_get_contents($post); //file system
     return view('post', [
         'post' => $post
     ]);
-})->where('post','[A-z_\-]*');
+})->where('post', '[A-z,\-]+');
 
 
 
